@@ -1,12 +1,12 @@
-namespace OscPack
+namespace Osc
 {
-    public class OscInteger32Argument : OscArgument
+    public class Integer32Argument : Argument
     {
         public override char TypeTag => 'i';
 
         public int Value { get; }
 
-        public OscInteger32Argument(int value)
+        public Integer32Argument(int value)
         {
             Value = value;
         }

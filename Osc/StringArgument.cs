@@ -1,15 +1,15 @@
 using System;
 using System.Text;
 
-namespace OscPack
+namespace Osc
 {
-    public class OscStringArgument : OscArgument
+    public class StringArgument : Argument
     {
         public override char TypeTag => 's';
 
         public string Value { get; }
 
-        public OscStringArgument(string value)
+        public StringArgument(string value)
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
         }

@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OscPack\OscPack.csproj" />
+      <ProjectReference Include="..\Osc\Osc.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 
-namespace OscPack
+namespace Osc
 {
-    public abstract class OscArgument
+    public abstract class Argument
     {
         public abstract char TypeTag { get; }
         public abstract byte[] ToBytes();

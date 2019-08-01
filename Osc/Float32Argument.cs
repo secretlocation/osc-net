@@ -1,15 +1,15 @@
 using System;
 using System.Linq;
 
-namespace OscPack
+namespace Osc
 {
-    public class OscFloat32Argument : OscArgument
+    public class Float32Argument : Argument
     {
         public override char TypeTag => 'f';
 
         public float Value { get; }
 
-        public OscFloat32Argument(float value)
+        public Float32Argument(float value)
         {
             Value = value;
         }

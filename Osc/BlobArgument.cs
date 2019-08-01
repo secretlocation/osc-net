@@ -1,14 +1,14 @@
 using System;
 
-namespace OscPack
+namespace Osc
 {
-    public class OscBlobArgument : OscArgument
+    public class BlobArgument : Argument
     {
         public override char TypeTag => 'b';
 
         public byte[] Value { get; }
 
-        public OscBlobArgument(byte[] value)
+        public BlobArgument(byte[] value)
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
         }
