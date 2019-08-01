@@ -6,13 +6,4 @@ namespace Osc
     {
         public IList<string> Segments { get; } = new List<string>(); 
     }
-
-    public class OscAddressPatternLexer
-    {
-    }
-
-    public class OscAddressPatternToken
-    {
-        
-    }
 }
