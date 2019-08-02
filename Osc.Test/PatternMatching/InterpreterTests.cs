@@ -17,7 +17,7 @@ namespace Osc.Test.PatternMatching
             var sut = new Interpreter(new Lexer());
             var regex = sut.GetRegex(tokens);
             
-            Assert.Equal("^.*$", regex.ToString());
+            Assert.Equal("^..*$", regex.ToString());
         }
 
         [Theory]
@@ -25,6 +25,12 @@ namespace Osc.Test.PatternMatching
         [InlineData("/abc", "/?*")]
         [InlineData("/abc", "/*?")]
         [InlineData("/abc", "/???")]
+        [InlineData("/abc", "/a[a-c]c")]
+        [InlineData("/abc", "/[!b-c]bc")]
+        [InlineData("/abc", "/{abc,def}")]
+        [InlineData("/abc", "/abc")]
+        [InlineData("/abc/def", "/abc/def")]
+        [InlineData("/aabdefaddefcd/def", "/a?b*[a-c][!a-c]{adc,def}cd/def")]
         public void Match_MatchingAddressAndPattern_True(string addressString, string patternString)
         {
             var sut = new Interpreter(new Lexer());
@@ -32,6 +38,19 @@ namespace Osc.Test.PatternMatching
             var pattern = new AddressPattern(patternString);
             
             Assert.True(sut.Match(address, pattern));
+        }
+        
+        [Theory]
+        [InlineData("/abc", "/??")]
+        [InlineData("/abc", "/.*")]
+        [InlineData("/abc/def", "/*/d.")]
+        public void Match_NonMatchingAddressAndPattern_False(string addressString, string patternString)
+        {
+            var sut = new Interpreter(new Lexer());
+            var address = new Address(addressString);
+            var pattern = new AddressPattern(patternString);
+            
+            Assert.False(sut.Match(address, pattern));
         }
     }
 }

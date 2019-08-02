@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Osc.PatternMatching
 {
@@ -18,7 +19,7 @@ namespace Osc.PatternMatching
         
         public override string ToRegEx()
         {
-            return Value;
+            return Regex.Escape(Value);
         }
         
         private static readonly char[] Terminators = new char[] {'?', '*', '[', '{'};

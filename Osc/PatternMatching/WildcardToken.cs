@@ -15,7 +15,7 @@ namespace Osc.PatternMatching
         {
             return Type == WildcardType.Single
                 ? "."
-                : "*";
+                : ".*";
         }
         
         public static WildcardToken Scan(string s)

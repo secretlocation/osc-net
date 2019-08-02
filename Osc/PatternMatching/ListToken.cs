@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Osc.PatternMatching
 {
@@ -14,7 +15,12 @@ namespace Osc.PatternMatching
         
         public override string ToRegEx()
         {
-            return $"({string.Join("|", List)})";
+            var escapedList = new string[List.Length];
+
+            for (var i = 0; i < List.Length; i++)
+                escapedList[i] = Regex.Escape(List[i]);
+            
+            return $"({string.Join("|", escapedList)})";
         }
 
         public static ListToken Scan(string s)

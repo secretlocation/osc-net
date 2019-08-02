@@ -46,7 +46,5 @@ namespace Osc.PatternMatching
 
             return true;
         }
-
-        private static readonly char[] SpecialChars = new char[] {'\\', '^', '$', '.', '|', '?', '*', '+', '(', ')', '[', '{'};
     }
 }
