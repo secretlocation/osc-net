@@ -8,5 +8,7 @@ namespace Osc.PatternMatching
         {
             Value = value;
         }
+
+        public abstract string ToRegEx();
     }
 }
