@@ -1,12 +1,12 @@
 namespace Osc
 {
-    public class Integer32Argument : Argument
+    public class OscInt : OscValue
     {
         public override char TypeTag => 'i';
 
         public int Value { get; }
 
-        public Integer32Argument(int value)
+        public OscInt(int value)
         {
             Value = value;
         }

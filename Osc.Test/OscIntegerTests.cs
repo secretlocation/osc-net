@@ -2,18 +2,18 @@ using Xunit;
 
 namespace Osc.Test
 {
-    public class Float32ArgumentTests
+    public class OscIntegerTests
     {
         [Fact]
         public void TypeTag_Get_ReturnsChar()
         {
-            Assert.Equal('f', new Float32Argument(0).TypeTag);
+            Assert.Equal('i', new OscInt(0).TypeTag);
         }
 
         [Fact]
-        public void ToBytes_ReturnsBigEndianIEEE754()
+        public void ToBytes_ReturnsBigEndian2sComplement()
         {
-            var sut = new Float32Argument(-4.360311e+25f);
+            var sut = new OscInt(-368032443);
             var expectedBytes = new byte[] { 0xEA, 0x10, 0x45, 0x45 };
             
             Assert.Equal(expectedBytes, sut.ToBytes());

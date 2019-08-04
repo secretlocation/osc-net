@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Osc
 {
-    public abstract class Argument
+    public abstract class OscValue
     {
         public abstract char TypeTag { get; }
         public abstract byte[] ToBytes();
@@ -17,7 +17,7 @@ namespace Osc
                 : bytes;
         }
 
-        protected int CalculatePaddedArrayLength(int elementCount)
+        protected int CalculatePaddedArrayLength(int elementCount, bool nullTerminated = false)
         {
             if (elementCount < 0)
                 throw new ArgumentException("Array cannot have negative number of elements.", nameof(elementCount));
@@ -26,7 +26,7 @@ namespace Osc
             
             return remainder > 0
                 ? elementCount - remainder + 4
-                : elementCount;
+                : elementCount + (nullTerminated ? 4 : 0);
         }
     }
 }

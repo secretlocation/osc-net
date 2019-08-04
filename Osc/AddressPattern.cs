@@ -18,5 +18,15 @@ namespace Osc
 
             Segments = pattern.Split('/');
         }
+
+        public override string ToString()
+        {
+            return $"/{string.Join("/", Segments)}";
+        }
+
+        public byte[] ToBytes()
+        {
+            return new OscString(ToString()).ToBytes();
+        }
     }
 }

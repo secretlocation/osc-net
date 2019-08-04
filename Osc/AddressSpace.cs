@@ -4,12 +4,12 @@ namespace Osc
 {
     public class AddressSpace
     {
-        public Method CreateMethod(Address address, Action<Argument[]> action)
+        public Method CreateMethod(Address address, Action<OscValue[]> action)
         {
             return null;
         }
 
-        public Method CreateMethod(string[] addressSegments, Action<Argument[]> action)
+        public Method CreateMethod(string[] addressSegments, Action<OscValue[]> action)
         {
             return null;
         }

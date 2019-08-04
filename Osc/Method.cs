@@ -4,12 +4,19 @@ namespace Osc
 {
     public class Method
     {
-        public Address Address { get; set; }
-        public Action<Message> Action { get; set; }
+        private readonly Action<Message> action;
+        
+        public Method(Address address, Action<Message> action)
+        {
+            Address = address ?? throw new ArgumentNullException(nameof(address));
+            this.action = action ?? throw new ArgumentNullException(nameof(action));
+        }
+        
+        public Address Address { get; }
 
         public void Dispatch(Message message)
         {
-            Action.Invoke(message);
+            action.Invoke(message);
         }
     }
 }

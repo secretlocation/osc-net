@@ -3,24 +3,24 @@ using Xunit;
 
 namespace Osc.Test
 {
-    public class BlobArgumentTests
+    public class OscBlobTests
     {
         [Fact]
         public void Ctor_NullValue_Throws()
         {
-            Assert.Throws<ArgumentNullException>(() => new BlobArgument(null));
+            Assert.Throws<ArgumentNullException>(() => new OscBlob(null));
         }
         
         [Fact]
         public void TypeTag_Get_ReturnsChar()
         {
-            Assert.Equal('b', new BlobArgument(new byte[0]).TypeTag);
+            Assert.Equal('b', new OscBlob(new byte[0]).TypeTag);
         }
 
         [Fact]
         public void ToBytes_EmptyArray_ReturnsSizeCountOnly()
         {
-            var sut = new BlobArgument(new byte[] {});
+            var sut = new OscBlob(new byte[] {});
             var expectedBytes = new byte[] {0, 0, 0, 0};
             
             Assert.Equal(expectedBytes, sut.ToBytes());
@@ -29,7 +29,7 @@ namespace Osc.Test
         [Fact]
         public void ToBytes_OneByteValue_PadsZeros()
         {
-            var sut = new BlobArgument(new byte[] { 1 });
+            var sut = new OscBlob(new byte[] { 1 });
             var expectedBytes = new byte[] { 0, 0, 0, 1, 1, 0, 0, 0 };
             
             Assert.Equal(expectedBytes, sut.ToBytes());

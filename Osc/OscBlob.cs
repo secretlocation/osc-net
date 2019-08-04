@@ -2,13 +2,13 @@ using System;
 
 namespace Osc
 {
-    public class BlobArgument : Argument
+    public class OscBlob : OscValue
     {
         public override char TypeTag => 'b';
 
         public byte[] Value { get; }
 
-        public BlobArgument(byte[] value)
+        public OscBlob(byte[] value)
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
         }

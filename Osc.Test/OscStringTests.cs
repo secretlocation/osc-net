@@ -3,24 +3,24 @@ using Xunit;
 
 namespace Osc.Test
 {
-    public class StringArgumentTests
+    public class OscStringTests
     {
         [Fact]
         public void Ctor_NullValue_Throws()
         {
-            Assert.Throws<ArgumentNullException>(() => new StringArgument(null));
+            Assert.Throws<ArgumentNullException>(() => new OscString(null));
         }
         
         [Fact]
         public void TypeTag_Get_ReturnsChar()
         {
-            Assert.Equal('s', new StringArgument(string.Empty).TypeTag);
+            Assert.Equal('s', new OscString(string.Empty).TypeTag);
         }
 
         [Fact]
         public void ToBytes_EmptyString_ReturnsFourNulls()
         {
-            var sut = new StringArgument(string.Empty);
+            var sut = new OscString(string.Empty);
             var expectedBytes = new byte[0];
             
             Assert.Equal(expectedBytes, sut.ToBytes());
@@ -29,7 +29,7 @@ namespace Osc.Test
         [Fact]
         public void ToBytes_ThreeLetterValue_ReturnsNullTerminatedAscii()
         {
-            var sut = new StringArgument("OSC");
+            var sut = new OscString("OSC");
             var expectedBytes = new byte[] { 79, 83, 67, 0 };
             
             Assert.Equal(expectedBytes, sut.ToBytes());
@@ -38,7 +38,7 @@ namespace Osc.Test
         [Fact]
         public void ToBytes_UnicodeValue_SubstitutesQuestionMarks()
         {
-            var sut = new StringArgument("ØSC");
+            var sut = new OscString("ØSC");
             var expectedBytes = new byte[] { 63, 83, 67, 0 };
             
             Assert.Equal(expectedBytes, sut.ToBytes());

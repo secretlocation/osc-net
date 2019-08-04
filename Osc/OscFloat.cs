@@ -3,13 +3,13 @@ using System.Linq;
 
 namespace Osc
 {
-    public class Float32Argument : Argument
+    public class OscFloat : OscValue
     {
         public override char TypeTag => 'f';
 
         public float Value { get; }
 
-        public Float32Argument(float value)
+        public OscFloat(float value)
         {
             Value = value;
         }
