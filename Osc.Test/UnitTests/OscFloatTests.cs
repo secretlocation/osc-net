@@ -18,5 +18,16 @@ namespace Osc.Test
             
             Assert.Equal(expectedBytes, sut.ToBytes());
         }
+        
+         
+        [Fact]
+        public void FromBytes_ReturnsValue()
+        {
+            var value = new OscFloat(-4.360311e+25f);
+            var bytes = value.ToBytes();
+            
+            Assert.Equal(value, OscFloat.FromBytes(ref bytes));
+            Assert.Empty(bytes);
+        }
     }
 }

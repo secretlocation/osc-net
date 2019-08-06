@@ -24,7 +24,7 @@ namespace Osc.Test.PatternMatching
         [InlineData("[abc]")]
         public void Scan_IncompleteRange_Exception(string s)
         {
-            Assert.Throws<LexerException>(() => RangeToken.Scan(s));
+            Assert.Throws<OscLexerException>(() => RangeToken.Scan(s));
         }
         
         [Fact]

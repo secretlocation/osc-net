@@ -31,7 +31,7 @@ namespace Osc.PatternMatching
                 return null;
             
             if (s.Length < 5 || (s.Contains("!") && s.Length < 6)) 
-                throw new LexerException($"Incomplete range expression: {s}");
+                throw new OscLexerException($"Incomplete range expression: {s}");
 
             var type = RangeType.InRange;
             var lowerBound = slicer.NextChar();
@@ -43,12 +43,12 @@ namespace Osc.PatternMatching
             }
 
             if (slicer.NextChar() != '-')
-                throw new LexerException($"Missing separator in range expression: {s}");
+                throw new OscLexerException($"Missing separator in range expression: {s}");
             
             var upperBound = slicer.NextChar();
 
             if (slicer.NextChar() != ']')
-                throw new LexerException($"Missing closing bracket in range expression: {s}");
+                throw new OscLexerException($"Missing closing bracket in range expression: {s}");
 
             var value = s.Substring(0, s.Length - slicer.Length);
             

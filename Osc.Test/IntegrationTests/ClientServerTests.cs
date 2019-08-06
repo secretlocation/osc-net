@@ -1,8 +1,5 @@
 using System.Net;
-using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -24,14 +21,14 @@ namespace Osc.Test
             using (var server = new OscServer(9001, new IPEndPoint(IPAddress.Any, 0)))
             using (var client = new OscClient(new IPEndPoint(IPAddress.Loopback, 9001)))
             {
-                var method = new Method(new Address("/abc"), Callback);
+                var method = new OscMethod(new OscAddress("/abc"), Callback);
             
                 server.AddMethods(method);
                 server.Start();
             
-                var addressPattern = new AddressPattern("/abc");
+                var addressPattern = new OscAddressPattern("/abc");
                 var arguments = new OscValue[] {new OscString("Hello World.")};
-                var message = new Message(addressPattern, arguments);
+                var message = new OscMessage(addressPattern, arguments);
             
                 client.Send(message);
             
@@ -41,10 +38,10 @@ namespace Osc.Test
             Assert.True(messageReceived);
         }
 
-        private void Callback(Message message)
+        private void Callback(OscMessage oscMessage)
         {
             messageReceived = true;
-            output.WriteLine(message.ToString());
+            output.WriteLine(oscMessage.ToString());
         }
     }
 }

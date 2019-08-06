@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Osc
 {
-    public class Message : IContents
+    public class OscMessage
     {
-        public Message(AddressPattern addressPattern, IEnumerable<OscValue> arguments)
+        public OscMessage(OscAddressPattern oscAddressPattern, IEnumerable<OscValue> arguments)
         {
-            AddressPattern = addressPattern ?? throw new ArgumentNullException(nameof(addressPattern));
+            AddressPattern = oscAddressPattern ?? throw new ArgumentNullException(nameof(oscAddressPattern));
             Arguments = arguments?.ToArray() ?? throw new ArgumentNullException(nameof(arguments));
         }
 
-        public AddressPattern AddressPattern { get; }
+        public OscAddressPattern AddressPattern { get; }
         public OscValue[] Arguments { get; }
 
         public byte[] ToBytes()
@@ -33,13 +32,13 @@ namespace Osc
             return new OscString(s).ToBytes();
        }
 
-        public static Message FromBytes(byte[] bytes)
+        public static OscMessage FromBytes(byte[] bytes)
         {
-            // Todo
-            var addressPattern= new AddressPattern("/abc");
-            var arguments = new OscValue[] { new OscString("Hello there.")} ;            
-            
-            return new Message(addressPattern, arguments);
+            var addressPattern = OscString.GetValue(ref bytes);
+            var argumentTags = OscString.GetValue(ref bytes).Substring(1);
+            var arguments = argumentTags.Select(t => OscValue.FromBytes(t, ref bytes));
+          
+            return new OscMessage(new OscAddressPattern(addressPattern), arguments);
         }
     }
 }

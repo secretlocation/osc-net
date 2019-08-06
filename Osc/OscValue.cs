@@ -7,17 +7,27 @@ namespace Osc
     {
         public abstract char TypeTag { get; }
         public abstract byte[] ToBytes();
-
-        protected byte[] ConvertToBigEndianBytes(int value)
+        
+        public static OscValue FromBytes(char tag, ref byte[] bytes)
         {
-            var bytes = BitConverter.GetBytes(value);
+            switch (tag)
+            {
+                case 'i': return OscInt.FromBytes(ref bytes);
+                case 'f': return OscFloat.FromBytes(ref bytes);
+                case 's': return OscString.FromBytes(ref bytes);
+                case 'b': return OscBlob.FromBytes(ref bytes);
+                default: throw new OscException($"Unable to read OSC argument with tag '{tag}'.");
+            }
+        }
 
+        protected static byte[] ConvertEndianess(byte[] bytes)
+        {
             return BitConverter.IsLittleEndian
                 ? bytes.Reverse().ToArray()
                 : bytes;
         }
 
-        protected int CalculatePaddedArrayLength(int elementCount, bool nullTerminated = false)
+        protected static int CalculatePaddedArrayLength(int elementCount, bool nullTerminated = false)
         {
             if (elementCount < 0)
                 throw new ArgumentException("Array cannot have negative number of elements.", nameof(elementCount));

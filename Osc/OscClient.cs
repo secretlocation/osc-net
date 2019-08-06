@@ -14,12 +14,12 @@ namespace Osc
             this.remoteEndPoint = remoteEndPoint;
         }
 
-        public void Send(Message message)
+        public void Send(OscMessage oscMessage)
         {
             if (udpClient == null)
                 udpClient = new UdpClient();
             
-            var bytes = message.ToBytes();
+            var bytes = oscMessage.ToBytes();
             
             udpClient.Send(bytes, bytes.Length, remoteEndPoint);
         }

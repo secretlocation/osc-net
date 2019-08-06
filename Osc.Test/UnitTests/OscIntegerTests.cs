@@ -18,5 +18,15 @@ namespace Osc.Test
             
             Assert.Equal(expectedBytes, sut.ToBytes());
         }
+        
+        [Fact]
+        public void FromBytes_ReturnsValue()
+        {
+            var value = new OscInt(-368032443);
+            var bytes = value.ToBytes();
+            
+            Assert.Equal(value, OscInt.FromBytes(ref bytes));
+            Assert.Empty(bytes);
+        }
     }
 }

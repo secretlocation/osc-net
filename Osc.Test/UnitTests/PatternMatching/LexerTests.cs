@@ -11,7 +11,7 @@ namespace Osc.Test.PatternMatching
         {
             var sut = new Lexer();
             
-            Assert.Throws<LexerException>(() => sut.GetTokens(null));
+            Assert.Throws<OscLexerException>(() => sut.GetTokens(null));
         }
 
         [Fact]

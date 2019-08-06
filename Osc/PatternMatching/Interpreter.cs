@@ -30,17 +30,17 @@ namespace Osc.PatternMatching
             return new Regex(regExBuilder.ToString());
         }
 
-        public bool Match(Address address, AddressPattern pattern)
+        public bool Match(OscAddress oscAddress, OscAddressPattern pattern)
         {
-            if (address.Segments.Length != pattern.Segments.Length)
+            if (oscAddress.Segments.Length != pattern.Segments.Length)
                 return false;
 
-            for (var i = 0; i < address.Segments.Length; i++)
+            for (var i = 0; i < oscAddress.Segments.Length; i++)
             {
                 var tokens = lexer.GetTokens(pattern.Segments[i]);
                 var regex = GetRegex(tokens);
 
-                if (!regex.IsMatch(address.Segments[i]))
+                if (!regex.IsMatch(oscAddress.Segments[i]))
                     return false;
             }
 

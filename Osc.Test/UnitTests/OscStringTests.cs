@@ -21,7 +21,7 @@ namespace Osc.Test
         public void ToBytes_EmptyString_ReturnsFourNulls()
         {
             var sut = new OscString(string.Empty);
-            var expectedBytes = new byte[0];
+            var expectedBytes = new byte[4];
             
             Assert.Equal(expectedBytes, sut.ToBytes());
         }
@@ -42,6 +42,20 @@ namespace Osc.Test
             var expectedBytes = new byte[] { 63, 83, 67, 0 };
             
             Assert.Equal(expectedBytes, sut.ToBytes());
+        }
+        
+        [Theory]
+        [InlineData("")]
+        [InlineData("abc")]
+        [InlineData("abcd")]
+        [InlineData("abcde")]
+        public void FromBytes_ReturnsValue(string s)
+        {
+            var value = new OscString(s);
+            var bytes = value.ToBytes();
+            
+            Assert.Equal(value, OscString.FromBytes(ref bytes));
+            Assert.Empty(bytes);
         }
     }
 }

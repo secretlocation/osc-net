@@ -10,7 +10,7 @@ namespace Osc
         private UdpClient udpClient;
         private bool started;
         private bool disposing;
-        private readonly List<Method> methods = new List<Method>();
+        private readonly HashSet<OscMethod> methodSet = new HashSet<OscMethod>();
         private readonly object methodsLock = new object();
         private readonly int localPort;
         private readonly IPEndPoint remoteEndPoint;
@@ -22,6 +22,28 @@ namespace Osc
             this.remoteEndPoint = remoteEndPoint;
         }
 
+        public void AddMethods(params OscMethod[] oscMethods)
+        {
+            lock (methodsLock)
+            {
+                foreach (var method in oscMethods)
+                {
+                    methodSet.Add(method);
+                }
+            }
+        }
+
+        public void RemoveMethods(params OscMethod[] oscMethods)
+        {
+            lock (methodsLock)
+            {
+                foreach (var method in oscMethods)
+                {
+                    methodSet.Remove(method);
+                }
+            }
+        }
+
         public void Start()
         {
             if (!started)
@@ -31,18 +53,7 @@ namespace Osc
                 BeginReceive();
             }
         }
-
-        public void AddMethods(params Method[] methods)
-        {
-            lock (methodsLock)
-            {
-                foreach (var method in methods)
-                {
-                    this.methods.Add(method);
-                }
-            }
-        }
-
+        
         private void BeginReceive()
         {
             var callback = new AsyncCallback(EndReceive);
@@ -56,11 +67,11 @@ namespace Osc
             {
                 var endPoint = new IPEndPoint(remoteEndPoint.Address, remoteEndPoint.Port);
                 var bytes = udpClient.EndReceive(result, ref endPoint);
-                var message = Message.FromBytes(bytes);
+                var message = OscMessage.FromBytes(bytes);
 
                 lock (methodsLock)
                 {
-                    foreach (var method in methods)
+                    foreach (var method in methodSet)
                     {
                         method.Dispatch(message);
                     }

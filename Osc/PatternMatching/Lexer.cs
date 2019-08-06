@@ -9,7 +9,7 @@ namespace Osc.PatternMatching
         public IEnumerable<Token> GetTokens(string pattern)
         {
             if (pattern == null)
-                throw new LexerException("Cannot process null pattern.");
+                throw new OscLexerException("Cannot process null pattern.");
             
             var tokens = new List<Token>();
             

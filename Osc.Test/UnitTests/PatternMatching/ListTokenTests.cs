@@ -14,7 +14,7 @@ namespace Osc.Test.PatternMatching
         [Fact]
         public void Scan_MissingClosingBrace_Exception()
         {
-            Assert.Throws<LexerException>(() => ListToken.Scan("{ab,cd,ef"));
+            Assert.Throws<OscLexerException>(() => ListToken.Scan("{ab,cd,ef"));
         }
 
         [Fact]

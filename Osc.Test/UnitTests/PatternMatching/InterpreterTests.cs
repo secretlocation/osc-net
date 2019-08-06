@@ -34,8 +34,8 @@ namespace Osc.Test.PatternMatching
         public void Match_MatchingAddressAndPattern_True(string addressString, string patternString)
         {
             var sut = new Interpreter(new Lexer());
-            var address = new Address(addressString);
-            var pattern = new AddressPattern(patternString);
+            var address = new OscAddress(addressString);
+            var pattern = new OscAddressPattern(patternString);
             
             Assert.True(sut.Match(address, pattern));
         }
@@ -47,8 +47,8 @@ namespace Osc.Test.PatternMatching
         public void Match_NonMatchingAddressAndPattern_False(string addressString, string patternString)
         {
             var sut = new Interpreter(new Lexer());
-            var address = new Address(addressString);
-            var pattern = new AddressPattern(patternString);
+            var address = new OscAddress(addressString);
+            var pattern = new OscAddressPattern(patternString);
             
             Assert.False(sut.Match(address, pattern));
         }

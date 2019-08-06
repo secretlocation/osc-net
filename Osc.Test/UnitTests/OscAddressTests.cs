@@ -3,31 +3,31 @@ using Xunit;
 
 namespace Osc.Test
 {
-    public class AddressTests
+    public class OscAddressTests
     {
         [Fact]
         public void Ctor_NullString_Throws()
         {
-            Assert.Throws<ArgumentNullException>(() => new Address((string)null));
+            Assert.Throws<ArgumentNullException>(() => new OscAddress((string)null));
         }
         
         [Fact]
         void Ctor_EmptyString_Throws()
         {
-            Assert.Throws<ArgumentException>(() => new Address(""));
+            Assert.Throws<ArgumentException>(() => new OscAddress(""));
         }
         
         [Fact]
         void Ctor_StringWithoutLeadingSlash_Throws()
         {
-            Assert.Throws<ArgumentException>(() => new Address("abs"));
+            Assert.Throws<ArgumentException>(() => new OscAddress("abs"));
         }
 
         
         [Fact]
         void Ctor_StringWithLeadingSlash_OneSegment()
         {
-            var sut = new Address("/abc");
+            var sut = new OscAddress("/abc");
             
             Assert.Collection(sut.Segments, segment => Assert.Equal("abc", segment));
         }
@@ -35,7 +35,7 @@ namespace Osc.Test
         [Fact]
         void Ctor_StringWithTrailingSlash_EmptySegment()
         {
-            var sut = new Address("/abc/");
+            var sut = new OscAddress("/abc/");
             
             Assert.Collection(sut.Segments, 
                 segment => Assert.Equal("abc", segment),
@@ -46,7 +46,7 @@ namespace Osc.Test
         [Fact]
         void Ctor_StringWithConsecutiveSlashes_EmptySegments()
         {
-            var sut = new Address("/a//bc");
+            var sut = new OscAddress("/a//bc");
             
             Assert.Collection(sut.Segments, 
                 segment => Assert.Equal("a", segment),
@@ -57,7 +57,7 @@ namespace Osc.Test
         [Fact]
         void Ctor_StringWithMultipleSlashes_MultipleSegments()
         {
-            var sut = new Address("/a/b/c");
+            var sut = new OscAddress("/a/b/c");
             
             Assert.Collection(sut.Segments, 
                 segment => Assert.Equal("a", segment),
@@ -68,7 +68,7 @@ namespace Osc.Test
         [Fact]
         public void IsValid_BasicAddress_True()
         {
-            var sut = new Address("/abc");
+            var sut = new OscAddress("/abc");
 
             var result = sut.IsValid(out var messages);
             
@@ -79,7 +79,7 @@ namespace Osc.Test
         [Fact]
         public void IsValid_EmptySegment_False()
         {
-            var sut = new Address("/a//bc");
+            var sut = new OscAddress("/a//bc");
 
             var result = sut.IsValid(out var messages);
             
@@ -91,7 +91,7 @@ namespace Osc.Test
         [Fact]
         public void IsValid_IllegalCharsSegment_False()
         {
-            var sut = new Address("/a /b#*,?[]{}");
+            var sut = new OscAddress("/a /b#*,?[]{}");
 
             var result = sut.IsValid(out var messages);
             

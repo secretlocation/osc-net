@@ -31,7 +31,7 @@ namespace Osc.PatternMatching
             var closingBraceIndex = s.IndexOf("}", StringComparison.InvariantCulture);
 
             if (closingBraceIndex < 0)
-                throw new LexerException($"Missing closing brace in list expression: {s}");
+                throw new OscLexerException($"Missing closing brace in list expression: {s}");
 
             var value = s.Substring(0, closingBraceIndex + 1);
             var list = value.Substring(1, value.Length - 2).Split(ListSeparator, StringSplitOptions.RemoveEmptyEntries);
