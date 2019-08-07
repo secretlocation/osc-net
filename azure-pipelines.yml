@@ -27,5 +27,5 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)'
 - task: PublishPipelineArtifact@1
   inputs:
-    path: $(System.DefaultWorkingDirectory)/bin/release
-    artifact: OscNet
+    path: $(System.DefaultWorkingDirectory)Osc/bin/Release
+    artifact: release-build
