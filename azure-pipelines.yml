@@ -15,6 +15,7 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '**\*.sln'
+    configuration: 'release'
     clean: false
 - task: VSTest@2
   inputs:
@@ -26,5 +27,5 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)'
 - task: PublishPipelineArtifact@1
   inputs:
-    path: $(System.DefaultWorkingDirectory)/bin/OscNet
+    path: $(System.DefaultWorkingDirectory)/bin/release
     artifact: OscNet
