@@ -13,7 +13,7 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '**\*.sln'
-    clean: true
+    clean: false
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
