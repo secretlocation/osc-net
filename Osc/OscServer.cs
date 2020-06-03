@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 
@@ -71,7 +72,8 @@ namespace Osc
 
                 lock (methodsLock)
                 {
-                    foreach (var method in methodSet)
+                    // Invoke each method that has the same OSC Address pattern
+                    foreach (var method in methodSet.Where(method => method.OscAddress.Segments.SequenceEqual(message.AddressPattern.Segments)))
                     {
                         method.Dispatch(message);
                     }
